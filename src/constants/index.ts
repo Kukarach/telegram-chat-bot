@@ -2,7 +2,6 @@ import type { BotPersonality } from '../types';
 
 export const MODEL_NAME = 'gpt-4o-mini';
 export const MAX_MESSAGES = 999;
-export const MAX_MESSAGES = 6;
 export const WELCOME_MESSAGE = 'Привет! Я Алиса, твой виртуальный собеседник. Рада познакомиться! 👋';
 
 export const BOT_PERSONALITIES: BotPersonality[] = [
