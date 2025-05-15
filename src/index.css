@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Montserrat:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Цветовая схема */
+  --primary: #ff3366;
+  --primary-light: #ff6699;
+  --primary-dark: #cc2952;
+  --secondary: #ff4d79;
+  --accent: #ff85a2;
+  --text-light: #ffffff;
+  --text-dark: #333333;
+  
+  /* Адаптация под Telegram Mini App */
+  --tg-theme-bg-color: var(--tg-theme-bg-color, #ffffff);
+  --tg-theme-text-color: var(--tg-theme-text-color, #000000);
+  --tg-theme-hint-color: var(--tg-theme-hint-color, #999999);
+  --tg-theme-link-color: var(--tg-theme-link-color, #2481cc);
+  --tg-theme-button-color: var(--tg-theme-button-color, #2481cc);
+  --tg-theme-button-text-color: var(--tg-theme-button-text-color, #ffffff);
+  --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+  --message-bubble-user: var(--primary);
+  --message-bubble-bot: #ffffff;
+  --message-text-user: #ffffff;
+  --message-text-bot: #333333;
+  --border-radius-large: 24px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  @apply bg-gradient-to-br from-[#ff6699] via-[#ff3366] to-[#ff4d79] text-white font-inter min-h-screen min-w-full;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+h1, h2, h3, .chat-header-title {
+  @apply font-montserrat font-bold;
+}
+
+.glass-card {
+  @apply bg-tg-glass backdrop-blur-glass border border-white/10 rounded-glass shadow-glass transition-all duration-200;
+}
+.glass-card:hover {
+  @apply scale-105 shadow-neon;
+}
+
+.neon-btn {
+  @apply bg-tg-accent text-white rounded-neon shadow-neon px-8 py-3 font-bold text-lg transition-all duration-200;
+}
+.neon-btn:active {
+  @apply shadow-lg scale-95;
+}
+
+.bubble-bot {
+  @apply bg-tg-bubble-bot text-tg-text-secondary text-shadow px-4 py-3 rounded-2xl rounded-bl-md max-w-[80%] shadow-md;
+}
+.bubble-user {
+  @apply bg-tg-bubble-user text-tg-text-main text-shadow px-4 py-3 rounded-2xl rounded-br-md max-w-[80%] shadow-md;
+}
+
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.input-gradient {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid;
+  border-image: linear-gradient(90deg, #FF2D75, #8A2BE2) 1;
+  color: #fff;
+  border-radius: 22px;
+  padding: 12px 18px;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  transition: border 0.2s;
+}
+.input-gradient:focus {
+  border-image: linear-gradient(90deg, #8A2BE2, #FF2D75) 1;
+  box-shadow: 0 0 8px rgba(255, 45, 117, 0.2);
+}
+
+.counter {
+  @apply absolute top-3 right-5 text-xs font-bold rounded px-2 py-1 bg-black/30 transition-colors;
+}
+.counter.green { color: #4be04b; }
+.counter.red { color: #FF2D75; }
+
+.blur-bg {
+  backdrop-filter: blur(8px);
+  background: rgba(30,30,30,0.7);
+}
+
+/* Модалка финала */
+.final-modal-bg {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/70;
+}
+.final-modal {
+  @apply bg-tg-glass backdrop-blur-glass rounded-glass p-8 text-center shadow-neon;
+  min-width: 280px;
+  max-width: 90vw;
+}
+.final-modal .neon-btn {
+  animation: pulse 1.2s infinite alternate;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #FF2D75; }
+  100% { box-shadow: 0 0 24px #FF2D75; }
+}
+
+/* SVG-иконки */
+.personality-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
+}
+
+/* Анимация градиента фона */
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 15s ease infinite;
+}
+
+/* Анимация пульсации для последнего сообщения */
+@keyframes pulseOnce {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-pulse-once {
+  animation: pulseOnce 2s ease-out;
+}
+
+/* Обновленный стиль для анимации печатания */
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: white;
+  animation: typing 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes typing {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.5); }
+::-moz-placeholder { color: rgba(255, 255, 255, 0.5); }
+:-ms-input-placeholder { color: rgba(255, 255, 255, 0.5); }
+::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+/* Контейнер чата */
+.chat-container {
+  background-color: var(--tg-theme-secondary-bg-color);
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin: 0 auto;
+  max-width: 95%;
+  height: 95%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Сообщения */
+.message-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble.user {
+  background-color: var(--message-bubble-user);
+  color: var(--message-text-user);
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble.bot {
+  background-color: var(--message-bubble-bot);
+  color: var(--message-text-bot);
+  border-bottom-left-radius: 4px;
+}
+
+/* Заголовок чата */
+.chat-header {
+  padding: 14px 16px;
+  background-color: var(--tg-theme-secondary-bg-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+}
+
+.chat-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.back-button {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Форма ввода сообщения */
+.message-input-container {
+  background-color: var(--tg-theme-secondary-bg-color);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 12px;
+}
+
+.message-input {
+  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--tg-theme-bg-color);
+}
+
+.send-button {
+  background-color: var(--message-bubble-user);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Дата сообщения */
+.message-timestamp {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 2px;
+  text-align: right;
+}
+
+/* Аудио сообщение */
+.audio-message {
+  display: flex;
+  align-items: center;
+  min-width: 160px;
+}
+
+.waveform {
+  flex: 1;
+  height: 24px;
+  margin: 0 10px;
+}
+
+.play-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 480px) {
+  .max-w-screen-sm {
+    max-width: 100%;
+    padding: 0;
+  }
+}
+
+/* Анимация фейд-ин для сообщений */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Кнопка в сообщении */
+.message-button {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  margin-top: 0.8rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(255, 51, 102, 0.3);
+}
+
+.message-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 51, 102, 0.4);
+}

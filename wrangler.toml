@@ -1,0 +1,9 @@
+name = "telegram-ai-chat-worker"
+main = "functions/worker.js"
+compatibility_date = "2023-06-10"
+
+[build]
+command = "npm run build"
+
+[site]
+bucket = "./dist" 
